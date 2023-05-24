@@ -1,0 +1,161 @@
+<!--
+ dnsbl_index.php
+
+ part of pfSense (https://www.pfsense.org)
+ Copyright (c) 2015-2023 Rubicon Communications, LLC (Netgate)
+ Copyright (c) 2015-2023 BBcan177@gmail.com
+ All rights reserved.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<?php if ($ptype['type'] == '-'): ?>
+	<meta http-equiv="refresh" content="1">
+	<?php endif; ?>
+
+	<title>Site blocked via DNSBL</title>
+</head>
+<style type="text/css">
+	body {
+		font: 12px/18px "Lucida Grande", Tahoma, Verdana, sans-serif;
+		color: #ECECEC;
+		background: #000000;
+		max-width: 1400px;
+	}
+	.container {
+		margin: 0 auto;
+		height: 100%;
+	}
+	.logo {
+                align: center;
+		position: relative;
+		float: left;
+		width: 100%;
+		left: 1%;
+	}
+	.footer {
+		text-align: center;
+		float: right;
+		width: 100%;
+	}
+	img {
+                
+		max-width: 25%;
+		max-height: 25%;
+	}
+	table {
+		float: right;
+		border-collapse: collapse;
+		border-spacing: 0;
+		border-width: 1px;
+		border-style: solid;
+		background: #DEE9FF;
+		color: #000000;
+		width: 100%;
+	}
+	caption {
+		color: #FFFFFF;
+		margin-bottom: 5px;
+	}
+	th, td {
+		padding: 5px;
+		text-align: left;
+		border: 2px solid #000000;
+	}
+	th {
+		background-color: #31790f;
+		color: #FFFFFF;
+	}
+	a {
+		color: #FFFFFF;
+		font-size: 85%;
+	}
+
+	@media (max-width: 640px) {
+		body {
+			font: 10px/16px "Lucida Grande", Tahoma, Verdana, sans-serif;
+		}
+		.logo {
+			text-align: center;
+			float: none;
+			width: 100%;
+			top: 30px;
+			left: 5%;
+			max-width: 90%;
+		}
+		.footer {
+			position: absolute;
+			float: none;
+			bottom: 20px;
+			width: 98%;
+		}
+		table {
+			float: none;
+			width: 100%;
+		}
+	}
+	@media (max-height: 440px) and (max-width: 640px) {
+		.logo {
+			left: 25%;
+			top: 20px;
+			max-width: 55%;
+		}
+	}
+</style>
+
+<body>
+		<div class="logo">
+                        <center>
+                        <br>
+                        <img src="https://i.ibb.co/ZY9Bf9w/Logomarca-Inforbrasil-em-Corel-Black.png" width ="150%" height="150%">
+                        </center>
+                </div>
+
+		<div class="footer">
+			<table id="dnsbl_table">
+				<caption>Esse website <span style="color: #FF0000; font-weight: bold;"><?=$ptype['HTTP_HOST']?></span> foi bloqueado pelo administrador de rede!</caption>
+
+				<?php if ($ts == 'M d'): ?>
+				<div>The Evaluated Domain is uncertain, refer to the DNSBL Reports tab for more details</div>
+				<?php endif; ?>
+
+				<thead>
+					<tr id="pfb_header">
+						<th>Seu IP</th>
+						<th>Tipo de bloqueio</th>
+						<th>Domínio acessado</th>
+						<th>Categoria</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><?=$ptype['REMOTE_ADDR'];?></td>
+						<td><?=$ptype['type'];?></td>
+						<td><?=$ptype['evald'];?></td>
+						<td><?=$ptype['feed'];?></td>
+					</tr>
+				</tbody>
+			</table>
+			<div>Desenvolvido por: <strong><font size="3"><a target="_blank" href="http://inforbrasil.com">Inforbrasil Informática</a></font></strong>&emsp;
+				
+			</div>
+		</div>
+	
+</body>
+</html>
